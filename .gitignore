@@ -1,0 +1,19 @@
+# 크롬 프로필 및 개인 세션 (보안 필수)
+chrome_cdp_profile/
+chrome_user_data/
+
+# 로그 파일
+*.log
+auto_run.log
+
+# 환경 변수 파일
+.env
+
+# 파이썬 캐시 및 가상환경
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# macOS
+.DS_Store
