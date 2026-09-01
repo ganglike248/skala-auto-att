@@ -23,10 +23,22 @@ def should_run_today(today=None):
         return False, f"공휴일({KR_HOLIDAYS.get(today)})"
     return True, ""
 
-# ================= 사용자 설정 =================
-USER_NAME = os.getenv("USER_NAME") # .env 파일에 설정된 사용자 이름
-TARGET_EMAIL = os.getenv("TARGET_EMAIL")
-# ===============================================
+# ================= 사용자 설정 (.env) =================
+USER_NAME = os.getenv("USER_NAME")          # 훈련생 이름
+TARGET_EMAIL = os.getenv("TARGET_EMAIL")    # 인증에 사용할 구글 계정
+REGION_NAME = os.getenv("REGION_NAME")      # 지역 드롭다운에 보이는 이름 (예: 울산캠퍼스)
+CLASS_NAME = os.getenv("CLASS_NAME")        # 반 드롭다운에 보이는 이름 (예: 4반)
+
+_missing = [k for k, v in {
+    "USER_NAME": USER_NAME,
+    "TARGET_EMAIL": TARGET_EMAIL,
+    "REGION_NAME": REGION_NAME,
+    "CLASS_NAME": CLASS_NAME,
+}.items() if not v]
+if _missing:
+    print(f"[오류] .env에 다음 값이 필요합니다: {', '.join(_missing)}")
+    sys.exit(1)
+# =====================================================
 
 TARGET_URL = "https://auth.skala-ai.com/"
 CHROME_PATH = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
@@ -113,21 +125,21 @@ def run_test():
         name_input = page.locator("input.auth-input[placeholder='훈련생 이름 입력']")
         name_input.fill(USER_NAME)
 
-        # 2. 지역 선택: 울산캠퍼스
-        print("[3] 지역: '울산캠퍼스' 선택")
+        # 2. 지역 선택
+        print(f"[3] 지역: '{REGION_NAME}' 선택")
         region_select = page.locator(".auth-field").filter(has_text="지역").locator("select")
-        region_select.select_option(value="US")
+        region_select.select_option(label=REGION_NAME)
 
-        # 3. 반 (클래스) 선택: 4반 (5번째 항목)
-        print("[4] 반 목록 로딩 대기...")
+        # 3. 반 (클래스) 선택
+        print(f"[4] 반 목록 로딩 대기... (선택 대상: '{CLASS_NAME}')")
         class_select = page.locator(".auth-field").filter(has_text="반 (클래스)").locator("select")
         page.wait_for_function("() => !document.querySelectorAll('.auth-select')[1].disabled")
-        page.wait_for_function("() => document.querySelectorAll('.auth-select')[1].options.length >= 5")
-
-        class_options = class_select.locator("option")
-        target_val = class_options.nth(4).get_attribute("value")
-        class_select.select_option(value=target_val)
-        print(f"[4-1] 반 선택 완료 (선택 값: {target_val})")
+        page.wait_for_function(
+            "name => [...document.querySelectorAll('.auth-select')[1].options].some(o => o.text.trim() === name)",
+            arg=CLASS_NAME,
+        )
+        class_select.select_option(label=CLASS_NAME)
+        print(f"[4-1] 반 선택 완료 ('{CLASS_NAME}')")
 
         # 4. 다음 버튼 클릭
         print("[5] '다음' 버튼 클릭")
