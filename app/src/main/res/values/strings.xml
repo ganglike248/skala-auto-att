@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">SKALA 자동 출결</string>
+    <string name="app_name">SKALA 출석</string>
     <string name="settings_title">설정</string>
     <string name="label_name">이름 (USER_NAME)</string>
     <string name="label_email">구글 이메일 (TARGET_EMAIL)</string>
