@@ -12,6 +12,12 @@
 
 ## 빌드
 
+Android SDK 경로가 필요합니다 (Android Studio를 쓰면 자동 생성되지만, 터미널에서 `gradlew`만 쓴다면 최초 1회 직접 만들어야 합니다). `.gitignore`에 걸려 있어 저장소를 새로 클론할 때마다 다시 만들어야 합니다.
+
+```bash
+echo "sdk.dir=$HOME/Library/Android/sdk" > local.properties
+```
+
 ```bash
 ./gradlew assembleDebug
 ```
