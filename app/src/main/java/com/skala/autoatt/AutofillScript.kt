@@ -69,6 +69,11 @@ object AutofillScript {
 
       window.AndroidBridge && window.AndroidBridge.onLog('지역 선택 중: ' + cfg.region);
       var regionSelect = await waitFor(function() { return findFieldSelect('지역'); }, 10000);
+      await waitFor(function() {
+        return Array.prototype.some.call(regionSelect.options, function(o) {
+          return o.text.trim() === cfg.region;
+        });
+      }, 10000);
       selectByLabel(regionSelect, cfg.region);
 
       window.AndroidBridge && window.AndroidBridge.onLog('반 목록 로딩 대기 중...');

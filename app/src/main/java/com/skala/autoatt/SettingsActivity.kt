@@ -17,6 +17,7 @@ class SettingsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_settings)
         prefs = Prefs(this)
+        findViewById<android.view.View>(R.id.rootLayout).applySystemBarInsetsAsPadding()
 
         val inputName = findViewById<TextInputEditText>(R.id.inputName)
         val inputEmail = findViewById<TextInputEditText>(R.id.inputEmail)

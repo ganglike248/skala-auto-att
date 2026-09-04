@@ -42,6 +42,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         prefs = Prefs(this)
 
+        findViewById<android.view.View>(R.id.rootLayout).applySystemBarInsetsAsPadding()
         setSupportActionBar(findViewById<MaterialToolbar>(R.id.toolbar))
         statusText = findViewById(R.id.statusText)
         webView = findViewById(R.id.webView)
