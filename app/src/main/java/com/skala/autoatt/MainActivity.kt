@@ -104,7 +104,23 @@ class MainActivity : AppCompatActivity() {
     private fun isTargetHost(uri: Uri): Boolean = uri.host == Uri.parse(targetUrl).host
 
     private fun openInCustomTab(url: Uri) {
-        CustomTabsIntent.Builder().build().launchUrl(this, url)
+        val target = withLoginHint(url)
+        CustomTabsIntent.Builder().build().launchUrl(this, target)
+    }
+
+    /**
+     * 구글 인증 URL이면 login_hint 파라미터로 TARGET_EMAIL을 붙여준다.
+     * 그 계정이 폰에 이미 로그인되어 있으면 계정 선택 화면 자체를 건너뛰거나
+     * 미리 선택된 상태로 넘어가서, 사람이 탭해야 하는 단계가 줄어든다.
+     */
+    private fun withLoginHint(url: Uri): Uri {
+        val email = prefs.targetEmail
+        val host = url.host ?: return url
+        val isGoogleAuthUrl = host == "accounts.google.com" || host.endsWith(".accounts.google.com")
+        if (!isGoogleAuthUrl || email.isBlank() || url.getQueryParameter("login_hint") != null) {
+            return url
+        }
+        return url.buildUpon().appendQueryParameter("login_hint", email).build()
     }
 
     private fun setStatus(text: String) {

@@ -1,0 +1,10 @@
+<resources>
+    <!-- SKALA 사이트의 지역 드롭다운 목록 (2026년 기준, README와 동일).
+         사이트에서 캠퍼스가 추가/변경되면 여기도 같이 수정해야 한다. -->
+    <string-array name="region_options">
+        <item>판교캠퍼스4F</item>
+        <item>판교캠퍼스5F</item>
+        <item>광주캠퍼스</item>
+        <item>울산캠퍼스</item>
+    </string-array>
+</resources>
