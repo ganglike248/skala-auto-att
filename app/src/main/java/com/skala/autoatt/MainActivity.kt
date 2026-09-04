@@ -42,8 +42,14 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         prefs = Prefs(this)
 
-        findViewById<android.view.View>(R.id.rootLayout).applySystemBarInsetsAsPadding()
-        setSupportActionBar(findViewById<MaterialToolbar>(R.id.toolbar))
+        val toolbar = findViewById<MaterialToolbar>(R.id.toolbar)
+        // 툴바의 파란 배경을 상태바 영역까지 이어지게 하고(아래 참고), 아이콘은
+        // 흰색으로 맞춘다. 나머지 콘텐츠는 좌/우/아래 인셋만 반영한다.
+        findViewById<android.view.View>(R.id.rootLayout).applySideAndBottomInsetsAsPadding()
+        toolbar.applyTopInsetAsPadding()
+        setStatusBarIconsLight(true)
+
+        setSupportActionBar(toolbar)
         statusText = findViewById(R.id.statusText)
         webView = findViewById(R.id.webView)
 

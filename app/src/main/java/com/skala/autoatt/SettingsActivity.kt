@@ -28,6 +28,8 @@ class SettingsActivity : AppCompatActivity() {
         setContentView(R.layout.activity_settings)
         prefs = Prefs(this)
         findViewById<android.view.View>(R.id.rootLayout).applySystemBarInsetsAsPadding()
+        // 이 화면은 흰 배경이라 상태바 아이콘을 어두운 색으로 맞춘다.
+        setStatusBarIconsLight(false)
 
         val inputName = findViewById<TextInputEditText>(R.id.inputName)
         val inputEmail = findViewById<TextInputEditText>(R.id.inputEmail)
