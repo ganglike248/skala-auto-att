@@ -69,7 +69,7 @@ def open_real_chrome():
         "--disable-sync",
         "--disable-features=OptimizationGuideModelDownloading,MediaRouter,PushMessaging",
         "--log-level=3",
-        "about:blank"
+        TARGET_URL
     ]
     devnull = open(os.devnull, "wb")
     return subprocess.Popen(
@@ -123,7 +123,9 @@ def get_browser_and_page(p):
     또한 사용자의 평소 크롬(다른 프로필)과는 완전히 분리되어 있어 영향이 없습니다."""
     try:
         browser = p.chromium.connect_over_cdp(f"http://127.0.0.1:{REMOTE_PORT}")
-        return browser, browser.contexts[0].new_page()
+        page = browser.contexts[0].new_page()
+        page.goto(TARGET_URL)
+        return browser, page
     except Exception:
         pass
 
@@ -145,10 +147,9 @@ def run_test():
             browser, page = get_browser_and_page(p)
             context = browser.contexts[0]
             context.on("page", lambda new_p: setup_mobile_emulation(new_p, context))
-            setup_mobile_emulation(page, context)
 
-            log("[1] 모바일 환경으로 사이트 접속...")
-            page.goto(TARGET_URL)
+            log("[1] 사이트 접속 후 모바일 환경으로 전환...")
+            setup_mobile_emulation(page, context)
             page.reload(wait_until="networkidle")
 
             # 1. 이름 입력
