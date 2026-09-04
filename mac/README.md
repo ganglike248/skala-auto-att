@@ -11,7 +11,7 @@
 ```bash
 # 1. 클론
 git clone https://github.com/ganglike248/skala-auto-att.git
-cd skala-auto-att
+cd skala-auto-att/mac
 
 # 2. 라이브러리 설치
 python3 -m pip install -r requirements.txt

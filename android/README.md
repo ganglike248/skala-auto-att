@@ -6,7 +6,7 @@
 
 갤럭시 루틴과 연결하면 실행 자체도 원하는 시간에 자동으로 됩니다 (아래 [자동화 하기](#자동화-하기-선택) 참고).
 
-[skala-auto-att](https://github.com/ganglike248/skala-auto-att) (macOS/launchd 버전)의 안드로이드용 자매 프로젝트입니다. mac에서도 출결 자동화를 실행하려면 참고해주세요.
+같은 저장소의 [`../mac/`](../mac/README.md)에 macOS/launchd 버전이 있습니다. mac에서도 출결 자동화를 실행하려면 참고해주세요.
 
 ---
 
