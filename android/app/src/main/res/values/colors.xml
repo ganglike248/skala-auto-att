@@ -1,0 +1,9 @@
+<resources>
+    <!-- SKALA 출결 사이트 로고/버튼과 같은 계열의 보라색 (근사치) -->
+    <color name="brand_primary">#6C4CE0</color>
+    <color name="brand_primary_dark">#4B32A8</color>
+    <color name="ic_launcher_background">#FFFFFF</color>
+    <color name="status_bg">#F5F7FA</color>
+    <color name="status_text">#1A202C</color>
+    <color name="status_error">#C53030</color>
+</resources>
