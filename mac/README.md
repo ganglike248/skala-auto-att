@@ -96,13 +96,15 @@ launchctl kickstart -k gui/$(id -u)/com.skala.auto-att
 
 ## 데스크탑 바로가기 (선택)
 
-더블클릭으로 수동 실행하고 싶다면:
+더블클릭으로 수동 실행하고 싶다면 (반드시 `mac` 프로젝트 폴더 안에서 실행 — 현재 위치가 그대로 앱에 박힙니다):
 
 ```bash
-osacompile -o ~/Desktop/"SKALA 출결 실행.app" <(echo "tell application \"Terminal\"
+cat <<APPLESCRIPT | osacompile -o ~/Desktop/"SKALA 출결 실행.app" -
+tell application "Terminal"
     activate
-    do script \"cd '$(pwd)' && python3 auto_att.py\"
-end tell")
+    do script "cd '$(pwd)' && python3 auto_att.py"
+end tell
+APPLESCRIPT
 ```
 
 ---
