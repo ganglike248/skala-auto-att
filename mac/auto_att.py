@@ -8,7 +8,7 @@ import holidays
 from playwright.sync_api import sync_playwright
 from dotenv import load_dotenv
 
-load_dotenv()
+load_dotenv(override=True)  # 셸 환경변수(예: ~/.zshrc의 CLASS_NAME)보다 .env를 우선
 
 # 대한민국 공휴일 (연도는 실행 시점에 맞춰 자동 확장)
 KR_HOLIDAYS = holidays.SouthKorea()
